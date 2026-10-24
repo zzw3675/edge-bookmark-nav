@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "书签导航页",
+  "version": "1.1.0",
+  "description": "把浏览器书签变成新标签页导航，支持明暗主题，可拉取远程导航分组。",
+  "permissions": ["bookmarks"],
+  "host_permissions": [],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}

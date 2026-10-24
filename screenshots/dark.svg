@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="550" viewBox="0 0 880 550" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="880" height="550" fill="#1e1b17"/>
+  <rect x="0" y="0" width="196" height="550" fill="#27231d"/>
+  <line x1="196" y1="0" x2="196" y2="550" stroke="#3a332a"/>
+  <text x="26" y="52" font-size="20" font-weight="800" fill="#eceae4">⌘ 书签<tspan fill="#e08a4e">导航</tspan></text>
+  <rect x="16" y="72" width="164" height="36" rx="11" fill="#2e2a22" stroke="#3a332a"/>
+  <text x="30" y="96" font-size="13.5" fill="#8d857a">搜索书签…（/ 聚焦）</text>
+  <rect x="12" y="126" width="172" height="38" rx="11" fill="#3a2e20"/>
+  <text x="30" y="150" font-size="14" font-weight="700" fill="#eba266">📁 常用工具</text>
+  <rect x="146" y="136" width="26" height="18" rx="9" fill="rgba(224,138,78,0.2)"/>
+  <text x="153" y="149" font-size="11" fill="#eba266" font-weight="600">6</text>
+  <rect x="12" y="172" width="172" height="36" rx="11" fill="#27231d"/>
+  <text x="30" y="195" font-size="14" fill="#b3aa9c">📁 技术学习</text>
+  <rect x="146" y="181" width="26" height="18" rx="9" fill="#2e2a22"/>
+  <text x="153" y="194" font-size="11" fill="#8d857a">5</text>
+  <rect x="12" y="216" width="172" height="36" rx="11" fill="#27231d"/>
+  <text x="30" y="239" font-size="14" fill="#b3aa9c">📁 社交娱乐</text>
+  <rect x="146" y="225" width="26" height="18" rx="9" fill="#2e2a22"/>
+  <text x="153" y="238" font-size="11" fill="#8d857a">4</text>
+  <rect x="12" y="260" width="172" height="36" rx="11" fill="#27231d"/>
+  <text x="30" y="283" font-size="14" fill="#b3aa9c">📁 购物生活</text>
+  <rect x="146" y="269" width="26" height="18" rx="9" fill="#2e2a22"/>
+  <text x="153" y="282" font-size="11" fill="#8d857a">4</text>
+  <line x1="16" y1="314" x2="180" y2="314" stroke="#332d25"/>
+  <text x="26" y="342" font-size="12" fill="#8d857a">书签实时同步 · 自动更新</text>
+  <text x="226" y="52" font-size="23" font-weight="800" fill="#eceae4">常用工具</text>
+  <text x="330" y="50" font-size="13" fill="#8d857a">6 个书签</text>
+  <g><rect x="226" y="82" width="198" height="62" rx="13" fill="#27231d" stroke="#3a332a"/><rect x="240" y="95" width="36" height="36" rx="10" fill="#333026"/><text x="252" y="119" font-size="18">🔍</text><text x="288" y="112" font-size="13.5" font-weight="600" fill="#eceae4">百度搜索</text><text x="288" y="130" font-size="11" fill="#8d857a">baidu.com</text></g>
+  <g><rect x="436" y="82" width="198" height="62" rx="13" fill="#27231d" stroke="#3a332a"/><rect x="450" y="95" width="36" height="36" rx="10" fill="#333026"/><text x="462" y="119" font-size="18">✉️</text><text x="498" y="112" font-size="13.5" font-weight="600" fill="#eceae4">QQ邮箱</text><text x="498" y="130" font-size="11" fill="#8d857a">mail.qq.com</text></g>
+  <g><rect x="646" y="82" width="198" height="62" rx="13" fill="#27231d" stroke="#3a332a"/><rect x="660" y="95" width="36" height="36" rx="10" fill="#333026"/><text x="672" y="119" font-size="18">📄</text><text x="708" y="112" font-size="13.5" font-weight="600" fill="#eceae4">腾讯文档</text><text x="708" y="130" font-size="11" fill="#8d857a">docs.qq.com</text></g>
+  <g><rect x="226" y="158" width="198" height="62" rx="13" fill="#27231d" stroke="#3a332a"/><rect x="240" y="171" width="36" height="36" rx="10" fill="#333026"/><text x="252" y="195" font-size="18">📋</text><text x="288" y="188" font-size="13.5" font-weight="600" fill="#eceae4">飞书</text><text x="288" y="206" font-size="11" fill="#8d857a">feishu.cn</text></g>
+  <g><rect x="436" y="158" width="198" height="62" rx="13" fill="#27231d" stroke="#3a332a"/><rect x="450" y="171" width="36" height="36" rx="10" fill="#333026"/><text x="462" y="195" font-size="18">🗺️</text><text x="498" y="188" font-size="13.5" font-weight="600" fill="#eceae4">高德地图</text><text x="498" y="206" font-size="11" fill="#8d857a">amap.com</text></g>
+  <g><rect x="646" y="158" width="198" height="62" rx="13" fill="#27231d" stroke="#3a332a"/><rect x="660" y="171" width="36" height="36" rx="10" fill="#333026"/><text x="672" y="195" font-size="18">🌐</text><text x="708" y="188" font-size="13.5" font-weight="600" fill="#eceae4">谷歌翻译</text><text x="708" y="206" font-size="11" fill="#8d857a">translate.google.com</text></g>
+  <text x="226" y="270" font-size="12" fill="#8d857a">深色模式：跟随系统自动切换 · 也可手动选择</text>
+</svg>
