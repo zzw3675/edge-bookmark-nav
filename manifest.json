@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "书签导航页",
-  "version": "1.2.0",
-  "description": "把浏览器书签变成新标签页导航，支持明暗主题，可自由加载远程导航页（自填网址），收藏夹可置顶。",
+  "version": "1.4.0",
+  "description": "把浏览器书签变成新标签页导航，支持明暗主题，可以自由加载远程导航页（自填网址），收藏夹可置顶。",
   "permissions": ["bookmarks"],
   "host_permissions": [
     "*://*/*"
