@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>书签导航页</title>
+  <link rel="stylesheet" href="newtab.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="side">
+      <div class="logo-row">
+        <div class="logo">⌘ 书签<span>导航</span></div>
+        <button id="themeBtn" class="theme-btn" title="切换主题（跟随系统 / 浅色 / 深色）">🌓</button>
+      </div>
+      <div class="search">
+        <input id="searchInput" type="text" placeholder="搜索书签…（/ 聚焦）" autocomplete="off" spellcheck="false" />
+      </div>
+      <nav id="sideList" class="cats"></nav>
+      <div class="foot" id="sideFoot">书签实时同步 · 自动更新</div>
+    </aside>
+    <main class="main">
+      <div class="m-head">
+        <h2 id="curGroup">书签</h2>
+        <span class="cnt" id="curCount"></span>
+        <span class="spacer"></span>
+        <span class="greet" id="greetLine"></span>
+      </div>
+      <div id="gridWrap" class="grid-wrap"></div>
+    </main>
+  </div>
+  <div id="empty" class="empty hidden">
+    <p>没有找到匹配的书签</p>
+    <button id="clearBtn">清除搜索</button>
+  </div>
+  <script src="newtab.js"></script>
+</body>
+</html>

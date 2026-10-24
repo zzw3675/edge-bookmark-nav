@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>书签导航页 · 在线演示</title>
+<style>
+:root{--bg:#f5f3ee;--panel:#fff;--line:#ebe6dc;--line-soft:#f0ece3;--ink:#37322c;--ink-2:#5f574a;--muted:#a99e8d;--accent:#d07c3c;--accent-deep:#b56a33;--accent-soft:#f2e4d4;--chip:#f8f6f1;--hover:#f6f3ec;--shadow:0 1px 2px rgba(0,0,0,.03);--shadow-hover:0 8px 20px rgba(0,0,0,.07);--emoji-bg:#f6f3ec}
+@media (prefers-color-scheme: dark){:root{--bg:#1e1b17;--panel:#27231d;--line:#3a332a;--line-soft:#332d25;--ink:#eceae4;--ink-2:#b3aa9c;--muted:#8d857a;--accent:#e08a4e;--accent-deep:#eba266;--accent-soft:#3a2e20;--chip:#2e2a22;--hover:#322c24;--shadow:0 1px 2px rgba(0,0,0,.3);--shadow-hover:0 8px 22px rgba(0,0,0,.45);--emoji-bg:#333026}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.5}
+.layout{display:flex;height:100vh;max-width:1440px;margin:0 auto}
+.side{width:264px;flex:none;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:24px 16px 18px;min-height:0}
+.logo{font-size:20px;font-weight:800;padding:0 8px 18px}
+.logo span{color:var(--accent)}
+.search{position:relative;margin-bottom:16px;padding:0 2px}
+.search input{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:11px;background:var(--chip);font-size:13.5px;color:var(--ink);outline:none}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(208,124,60,.15)}
+.cats{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:3px;min-height:0}
+.cat{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:11px;cursor:pointer;font-size:14px;color:var(--ink-2);transition:background .12s}
+.cat:hover{background:var(--hover)}
+.cat.active{background:var(--accent-soft);color:var(--accent-deep);font-weight:700}
+.cat .c-ic{width:22px;text-align:center;flex:none;font-size:15px}
+.cat .c-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cat .c-num{font-size:11.5px;color:var(--muted);background:var(--chip);padding:1px 9px;border-radius:999px}
+.cat.active .c-num{color:var(--accent-deep);background:rgba(208,124,60,.14);font-weight:600}
+.foot{padding:12px 8px 0;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line-soft);margin-top:12px}
+.main{flex:1;min-width:0;padding:28px 34px;display:flex;flex-direction:column;min-height:0}
+.m-head{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
+.m-head h2{font-size:23px;font-weight:800}
+.m-head .cnt{font-size:13px;color:var(--muted)}
+.m-head .spacer{flex:1}
+.m-head .greet{font-size:13px;color:var(--muted)}
+.grid-wrap{flex:1;overflow-y:auto;padding-right:6px}
+.grid-wrap::-webkit-scrollbar,.cats::-webkit-scrollbar{width:6px}
+.grid-wrap::-webkit-scrollbar-thumb,.cats::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:3px}
+.group-block{margin-bottom:26px}
+.group-block .g-title{font-size:13px;font-weight:700;color:var(--ink-2);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.group-block .g-title::before{content:"";width:4px;height:13px;border-radius:2px;background:var(--accent)}
+.group-block .g-title .g-num{font-size:11.5px;color:var(--muted);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.tile{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:11px 13px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .12s,box-shadow .12s,border-color .12s;min-width:0}
+.tile:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:var(--shadow-hover)}
+.tile .fav{width:36px;height:36px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--emoji-bg);font-size:18px}
+.tile .t-text{min-width:0;flex:1}
+.tile .t1{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .t2{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+@media (max-width:860px){.layout{flex-direction:column;height:auto}.side{width:100%;max-height:240px;border-right:none;border-bottom:1px solid var(--line)}.main{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="side">
+    <div class="logo">⌘ 书签<span>导航</span></div>
+    <div class="search"><input id="q" placeholder="搜索书签…（/ 聚焦）" autocomplete="off"></div>
+    <nav class="cats" id="cats"></nav>
+    <div class="foot">书签实时同步 · 自动更新 · 远程分组已接入</div>
+  </aside>
+  <main class="main">
+    <div class="m-head"><h2 id="cur">常用工具</h2><span class="cnt" id="cnt"></span><span class="spacer"></span><span class="greet" id="greet"></span></div>
+    <div class="grid-wrap" id="grid"></div>
+  </main>
+</div>
+<script>
+function $(id){return document.getElementById(id);}
+var DATA=[
+ {title:"常用工具",items:[["百度搜索","baidu.com","🔍"],["必应","bing.com","🧭"],["QQ邮箱","mail.qq.com","✉️"],["腾讯文档","docs.qq.com","📄"],["飞书","feishu.cn","📋"],["高德地图","amap.com","🗺️"]]},
+ {title:"技术学习",items:[["GitHub","github.com","🐙"],["掘金","juejin.cn","🦊"],["CSDN","csdn.net","💻"],["菜鸟教程","runoob.com","📚"],["MDN","developer.mozilla.org","📘"]]},
+ {title:"社交娱乐",items:[["哔哩哔哩","bilibili.com","📺"],["知乎","zhihu.com","💬"],["小红书","xiaohongshu.com","📕"],["抖音","douyin.com","🎵"]]},
+ {title:"购物生活",items:[["淘宝","taobao.com","🐱"],["京东","jd.com","🐶"],["拼多多","pinduoduo.com","🛒"],["美团外卖","waimai.meituan.com","🍲"]]}
+];
+var cats=$( "cats"),grid=$( "grid"),cur=$( "cur"),cnt=$( "cnt");
+var active=0;
+function render(list){
+  grid.innerHTML="";
+  list.forEach(function(g){
+    var b=document.createElement("div");b.className="group-block";
+    var h=document.createElement("div");h.className="g-title";h.textContent=g.title;
+    var n=document.createElement("span");n.className="g-num";n.textContent=g.items.length+" 项";h.appendChild(n);
+    var gr=document.createElement("div");gr.className="grid";
+    g.items.forEach(function(it){
+      var a=document.createElement("a");a.className="tile";a.href="https://"+it[1];a.target="_blank";a.rel="noopener noreferrer";
+      var f=document.createElement("span");f.className="fav";f.textContent=it[2];
+      var t=document.createElement("div");t.className="t-text";
+      var t1=document.createElement("div");t1.className="t1";t1.textContent=it[0];
+      var t2=document.createElement("div");t2.className="t2";t2.textContent=it[1];
+      t.appendChild(t1);t.appendChild(t2);a.appendChild(f);a.appendChild(t);gr.appendChild(a);
+    });
+    b.appendChild(h);b.appendChild(gr);grid.appendChild(b);
+  });
+}
+function renderCats(){
+  cats.innerHTML="";
+  DATA.forEach(function(g,i){
+    var d=document.createElement("div");d.className="cat"+(i===active?" active":"");
+    d.innerHTML='<span class="c-ic">📁</span><span class="c-name"></span><span class="c-num"></span>';
+    d.querySelector(".c-name").textContent=g.title;
+    d.querySelector(".c-num").textContent=g.items.length;
+    d.onclick=function(){active=i;renderCats();show();};
+    cats.appendChild(d);
+  });
+}
+function show(){
+  cur.textContent=DATA[active].title;
+  cnt.textContent=DATA[active].items.length+" 个书签";
+  render([DATA[active]]);
+}
+document.getElementById("q").addEventListener("input",function(){
+  var q=this.value.trim().toLowerCase();
+  if(!q){show();return;}
+  cur.textContent="搜索结果";cnt.textContent="";
+  var hits=[];DATA.forEach(function(g){var m=g.items.filter(function(it){return it[0].toLowerCase().indexOf(q)>=0||it[1].toLowerCase().indexOf(q)>=0;});if(m.length)hits.push({title:g.title,items:m});});
+  render(hits);
+});
+document.addEventListener("keydown",function(e){if(e.key==="/"){e.preventDefault();document.getElementById("q").focus();}});
+var now=new Date(),days=["日","一","二","三","四","五","六"];
+document.getElementById("greet").textContent=now.getFullYear()+"年"+(now.getMonth()+1)+"月"+now.getDate()+"日 星期"+days[now.getDay()];
+renderCats();show();
+</script>
+</body>
+</html>
