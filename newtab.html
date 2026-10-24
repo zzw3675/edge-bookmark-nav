@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="layout">
+    <!-- 左侧栏 -->
     <aside class="side">
       <div class="logo-row">
         <div class="logo">⌘ 书签<span>导航</span></div>
@@ -16,12 +17,15 @@
       <div class="search">
         <input id="searchInput" type="text" placeholder="搜索书签…（/ 聚焦）" autocomplete="off" spellcheck="false" />
       </div>
+      <button id="addNavBtn" class="add-nav-btn" title="自己填网址，加载一个导航页">＋ 添加导航页</button>
       <nav id="sideList" class="cats"></nav>
       <div class="foot" id="sideFoot">书签实时同步 · 自动更新</div>
     </aside>
+
+    <!-- 右侧内容 -->
     <main class="main">
       <div class="m-head">
-        <h2 id="curGroup">书签</h2>
+        <h2 id="curGroup">全部书签</h2>
         <span class="cnt" id="curCount"></span>
         <span class="spacer"></span>
         <span class="greet" id="greetLine"></span>
@@ -29,10 +33,33 @@
       <div id="gridWrap" class="grid-wrap"></div>
     </main>
   </div>
+
   <div id="empty" class="empty hidden">
     <p>没有找到匹配的书签</p>
     <button id="clearBtn">清除搜索</button>
   </div>
+
+  <!-- 添加 / 编辑导航页弹窗 -->
+  <div id="modalMask" class="modal-mask hidden">
+    <div class="modal">
+      <div class="m-title" id="modalTitle">添加导航页</div>
+      <label class="m-field">名称
+        <input id="edName" type="text" placeholder="例如：我的内网导航" autocomplete="off" spellcheck="false" />
+      </label>
+      <label class="m-field">网址
+        <input id="edUrl" type="text" placeholder="http://192.168.1.100:8080/" autocomplete="off" spellcheck="false" />
+      </label>
+      <p class="m-tip">保存后会自动抓取该网址页面里的所有链接，作为导航分组展示。</p>
+      <div class="m-err hidden" id="edErr"></div>
+      <div class="m-btns">
+        <button id="edDel" class="m-del hidden">删除</button>
+        <span class="spacer"></span>
+        <button id="edCancel" class="m-cancel">取消</button>
+        <button id="edOk" class="m-ok">确定</button>
+      </div>
+    </div>
+  </div>
+
   <script src="newtab.js"></script>
 </body>
 </html>
