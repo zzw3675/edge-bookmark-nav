@@ -93,18 +93,44 @@ function hostOf(url) {
   catch { return url; }
 }
 
-/* ---------- 书签收集：二级菜单扁平化 ----------
- * 每个顶层文件夹：
+/* ---------- 书签收集：穿透系统根 + 二级菜单扁平化 ----------
+ * Edge/Chrome 书签树最外层是系统文件夹（收藏夹栏 / 其他书签 / 移动设备书签）。
+ * 这里先把这些系统根直接穿透，把它们下面的文件夹当作一级，直接用文件夹名，
+ * 不再拼「收藏夹栏 / …」这类长前缀。
+ * 一级文件夹：
  *   - 直接书签 → 一个分类（文件夹本身）
- *   - 每个直接子文件夹 → 提升为独立分类「父 / 子」，内容为该子文件夹下全部书签（含更深嵌套）
+ *   - 每个直接子文件夹 → 提升为独立分类（默认用子文件夹名），内容为该子文件夹下全部书签
+ * 只有出现重名时才用「父 / 子」消歧。
  */
+const SYSTEM_ROOT_TITLES = new Set([
+  "收藏夹栏", "书签栏", "其他书签", "移动设备书签",
+  "Bookmarks Bar", "Other Bookmarks", "Mobile Bookmarks"
+]);
+
+function isSystemRoot(node) {
+  return !!node && !!node.children && node.children.length > 0 &&
+    SYSTEM_ROOT_TITLES.has((node.title || "").trim());
+}
+
 let flatGroups = []; // [{title, items:[{title,url}]}]
 let allItems = [];
 
 function collect(root) {
   flatGroups = [];
+  // 1) 穿透系统根文件夹，得到真正的一级文件夹
+  const levelOne = [];
   for (const node of root) {
-    if (node.url) continue;
+    if (!node || node.url) continue;
+    if (isSystemRoot(node)) {
+      for (const child of node.children) levelOne.push(child);
+    } else {
+      levelOne.push(node);
+    }
+  }
+  // 2) 组装分组
+  const groups = []; // {title, items, parent}
+  for (const node of levelOne) {
+    if (!node || node.url) continue;
     const topTitle = node.title || "未命名";
     const direct = [];
     const subs = [];
@@ -112,15 +138,20 @@ function collect(root) {
       if (child.url) direct.push({ title: child.title || hostOf(child.url), url: child.url });
       else if (child.children && child.children.length) subs.push(child);
     }
-    if (direct.length) flatGroups.push({ title: topTitle, items: direct });
+    if (direct.length) groups.push({ title: topTitle, items: direct, parent: null });
     for (const sub of subs) {
       const items = [];
       walkCollect(sub.children, items);
-      if (items.length) {
-        flatGroups.push({ title: topTitle + " / " + (sub.title || "未命名"), items });
-      }
+      if (items.length) groups.push({ title: sub.title || "未命名", items, parent: topTitle });
     }
   }
+  // 3) 重名消歧：同名分类出现多次时，带父级的用「父 / 子」
+  const nameCount = {};
+  for (const g of groups) nameCount[g.title] = (nameCount[g.title] || 0) + 1;
+  for (const g of groups) {
+    if (nameCount[g.title] > 1 && g.parent) g.title = g.parent + " / " + g.title;
+  }
+  flatGroups = groups;
   allItems = [];
   for (const g of flatGroups) {
     for (const it of g.items) allItems.push({ ...it, group: g.title });
@@ -230,6 +261,7 @@ let currentView = { type: "all" };
 let searchQuery = "";
 
 function render() {
+  gridWrap.classList.toggle("remote-view", currentView.type === "remote");
   gridWrap.innerHTML = "";
   emptyBox.classList.add("hidden");
   let blocks = [];
@@ -264,19 +296,60 @@ function render() {
     const g = currentView.group;
     curGroupEl.textContent = g.title;
     curCountEl.textContent = g.items.length + " 个书签";
-    blocks.push(groupBlock(g.title, g.items, ""));
+    if (g.items.length) blocks.push(groupBlock(g.title, g.items, ""));
+    else {
+      const p = document.createElement("p");
+      p.style.cssText = "color:var(--muted);padding:40px 0;text-align:center;";
+      p.textContent = "这个分类下还没有书签。";
+      blocks.push(p);
+    }
   } else if (currentView.type === "remote") {
     const src = currentView.src;
     const st = remoteState[src.id];
-    curGroupEl.textContent = "远程导航 · " + src.name;
-    curCountEl.textContent = (st && st.ok ? st.items.length : 0) + " 个链接";
-    if (st && st.ok) blocks.push(groupBlock(src.name, st.items, ""));
-    else {
-      const p = document.createElement("p");
-      p.style.cssText = "color:var(--muted);padding:40px 0;text-align:center;line-height:2;";
-      p.textContent = "无法访问该导航页（服务未启动或网络不可达）。\n可点侧栏该导航页旁的 ✎ 修改网址后重试。";
-      blocks.push(p);
+    curGroupEl.textContent = "导航页 · " + src.name;
+    curCountEl.textContent = "";
+
+    // 顶部工具栏：在新标签页打开 / 刷新
+    const bar = document.createElement("div");
+    bar.className = "remote-bar";
+    const openBtn = document.createElement("button");
+    openBtn.className = "r-btn";
+    openBtn.textContent = "↗ 在新标签页打开";
+    openBtn.title = "直接打开 " + src.url;
+    openBtn.addEventListener("click", () => { window.open(src.url, "_blank"); });
+    const refreshBtn = document.createElement("button");
+    refreshBtn.className = "r-btn";
+    refreshBtn.textContent = "↻ 重新加载";
+    refreshBtn.addEventListener("click", () => { refreshSource(src); });
+    bar.append(openBtn, refreshBtn);
+    blocks.push(bar);
+
+    // 提示：是否抓取到链接
+    const tip = document.createElement("p");
+    tip.className = "remote-tip";
+    if (st && st.ok && st.items.length) {
+      tip.textContent = "已抓取到 " + st.items.length + " 个链接，已列在下方；也可直接预览该页面。";
+    } else if (st && st.ok) {
+      tip.textContent = "已连上该页面，但没找到可抓取的链接（页面可能是动态加载）。下方为实时预览。";
+    } else {
+      tip.textContent = "未能连接该页面（服务未启动 / 网络不可达 / 需要权限）。下方是实时预览，若空白可点上方按钮在新标签页打开，或点 ✎ 改网址。";
     }
+    blocks.push(tip);
+
+    // 抓取到的链接列表（如有）
+    if (st && st.ok && st.items.length) {
+      blocks.push(groupBlock(src.name, st.items, ""));
+    }
+
+    // 内嵌实时预览（iframe）
+    const frame = document.createElement("div");
+    frame.className = "remote-frame";
+    const iframe = document.createElement("iframe");
+    iframe.src = src.url;
+    iframe.referrerPolicy = "no-referrer";
+    iframe.setAttribute("allowfullscreen", "");
+    frame.appendChild(iframe);
+    blocks.push(frame);
   }
 
   blocks.forEach((b) => gridWrap.appendChild(b));
