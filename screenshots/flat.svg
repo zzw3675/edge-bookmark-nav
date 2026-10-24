@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="880" height="560" fill="#f5f3ee"/>
+  <rect x="0" y="0" width="204" height="560" fill="#ffffff"/>
+  <line x1="204" y1="0" x2="204" y2="560" stroke="#ebe6dc"/>
+  <text x="24" y="50" font-size="20" font-weight="800" fill="#37322c">⌘ 书签<tspan fill="#d07c3c">导航</tspan></text>
+  <rect x="14" y="66" width="176" height="34" rx="11" fill="#f8f6f1" stroke="#ebe6dc"/>
+  <text x="28" y="89" font-size="13" fill="#a99e8d">搜索书签…（/ 聚焦）</text>
+  <rect x="12" y="112" width="180" height="38" rx="11" fill="none" stroke="#d8cdbd" stroke-dasharray="4 3"/>
+  <text x="30" y="137" font-size="14" fill="#5f574a">＋ 添加导航页</text>
+  <text x="30" y="186" font-size="13" fill="#5f574a">🌐 192.168.3.91:8899</text>
+  <rect x="170" y="174" width="22" height="16" rx="8" fill="#f2e4d4"/>
+  <text x="175" y="187" font-size="10.5" fill="#b56a33" font-weight="600">源</text>
+  <text x="30" y="222" font-size="13" fill="#5f574a">🌐 143.47.123.115:8080</text>
+  <rect x="170" y="210" width="22" height="16" rx="8" fill="#f2e4d4"/>
+  <text x="175" y="223" font-size="10.5" fill="#b56a33" font-weight="600">源</text>
+  <line x1="14" y1="246" x2="190" y2="246" stroke="#f0ece3"/>
+  <text x="14" y="270" font-size="11.5" fill="#a99e8d">置顶到最前 ↓</text>
+  <rect x="12" y="282" width="180" height="36" rx="11" fill="#f2e4d4"/>
+  <text x="30" y="305" font-size="14" font-weight="700" fill="#b56a33">📌 购物</text>
+  <rect x="156" y="291" width="26" height="18" rx="9" fill="rgba(208,124,60,0.14)"/>
+  <text x="163" y="304" font-size="11" fill="#b56a33" font-weight="600">1</text>
+  <rect x="12" y="326" width="180" height="36" rx="11" fill="#ffffff"/>
+  <text x="30" y="349" font-size="14" fill="#5f574a">📁 电影</text>
+  <rect x="156" y="335" width="26" height="18" rx="9" fill="#f8f6f1"/>
+  <text x="163" y="348" font-size="11" fill="#a99e8d">1</text>
+  <rect x="12" y="370" width="180" height="36" rx="11" fill="#ffffff"/>
+  <text x="30" y="393" font-size="14" fill="#5f574a">📁 电脑</text>
+  <rect x="156" y="379" width="26" height="18" rx="9" fill="#f8f6f1"/>
+  <text x="163" y="392" font-size="11" fill="#a99e8d">1</text>
+  <rect x="12" y="414" width="180" height="36" rx="11" fill="#ffffff"/>
+  <text x="30" y="437" font-size="14" fill="#5f574a">📁 工作</text>
+  <rect x="156" y="423" width="26" height="18" rx="9" fill="#f8f6f1"/>
+  <text x="163" y="436" font-size="11" fill="#a99e8d">2</text>
+  <rect x="12" y="458" width="180" height="36" rx="11" fill="#ffffff"/>
+  <text x="30" y="481" font-size="14" fill="#5f574a">📁 开发</text>
+  <rect x="156" y="467" width="26" height="18" rx="9" fill="#f8f6f1"/>
+  <text x="163" y="480" font-size="11" fill="#a99e8d">2</text>
+  <rect x="12" y="502" width="180" height="36" rx="11" fill="#ffffff"/>
+  <text x="30" y="525" font-size="14" fill="#5f574a">📁 读书</text>
+  <rect x="156" y="511" width="26" height="18" rx="9" fill="#f8f6f1"/>
+  <text x="163" y="524" font-size="11" fill="#a99e8d">1</text>
+  <text x="224" y="50" font-size="23" font-weight="800" fill="#37322c">全部书签</text>
+  <text x="330" y="48" font-size="13" fill="#a99e8d">8 个</text>
+  <text x="708" y="48" font-size="12" fill="#a99e8d">2026年10月24日 · 星期六</text>
+  <g><rect x="224" y="80" width="198" height="62" rx="13" fill="#ffffff" stroke="#ebe6dc"/><rect x="238" y="93" width="36" height="36" rx="10" fill="#f6f3ec"/><text x="250" y="117" font-size="18">🎬</text><text x="286" y="110" font-size="13.5" font-weight="600" fill="#37322c">豆瓣电影</text><text x="286" y="128" font-size="11" fill="#a99e8d">movie.douban.com</text></g>
+  <g><rect x="434" y="80" width="198" height="62" rx="13" fill="#ffffff" stroke="#ebe6dc"/><rect x="448" y="93" width="36" height="36" rx="10" fill="#f6f3ec"/><text x="460" y="117" font-size="18">🛒</text><text x="496" y="110" font-size="13.5" font-weight="600" fill="#37322c">京东</text><text x="496" y="128" font-size="11" fill="#a99e8d">jd.com</text></g>
+  <g><rect x="644" y="80" width="198" height="62" rx="13" fill="#ffffff" stroke="#ebe6dc"/><rect x="658" y="93" width="36" height="36" rx="10" fill="#f6f3ec"/><text x="670" y="117" font-size="18">✉️</text><text x="706" y="110" font-size="13.5" font-weight="600" fill="#37322c">QQ邮箱</text><text x="706" y="128" font-size="11" fill="#a99e8d">mail.qq.com</text></g>
+  <g><rect x="224" y="156" width="198" height="62" rx="13" fill="#ffffff" stroke="#ebe6dc"/><rect x="238" y="169" width="36" height="36" rx="10" fill="#f6f3ec"/><text x="250" y="193" font-size="18">💼</text><text x="286" y="186" font-size="13.5" font-weight="600" fill="#37322c">飞书</text><text x="286" y="204" font-size="11" fill="#a99e8d">feishu.cn</text></g>
+  <g><rect x="434" y="156" width="198" height="62" rx="13" fill="#ffffff" stroke="#ebe6dc"/><rect x="448" y="169" width="36" height="36" rx="10" fill="#f6f3ec"/><text x="460" y="193" font-size="18">🐙</text><text x="496" y="186" font-size="13.5" font-weight="600" fill="#37322c">GitHub</text><text x="496" y="204" font-size="11" fill="#a99e8d">github.com</text></g>
+  <g><rect x="644" y="156" width="198" height="62" rx="13" fill="#ffffff" stroke="#ebe6dc"/><rect x="658" y="169" width="36" height="36" rx="10" fill="#f6f3ec"/><text x="670" y="193" font-size="18">📖</text><text x="706" y="186" font-size="13.5" font-weight="600" fill="#37322c">豆瓣读书</text><text x="706" y="204" font-size="11" fill="#a99e8d">book.douban.com</text></g>
+  <text x="224" y="270" font-size="12.5" fill="#a99e8d">收藏夹已穿透系统根：直接用文件夹名（电影 / 电脑 / 工作…），不再出现「收藏夹栏 / …」长前缀；</text>
+  <text x="224" y="290" font-size="12.5" fill="#a99e8d">悬停分类点 📌 即可置顶到最前（此图「购物」已置顶），支持「＋ 添加导航页」自由加载任意网址。</text>
+</svg>
