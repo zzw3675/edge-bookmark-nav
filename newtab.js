@@ -26,10 +26,10 @@ const edCancel = $("edCancel");
 const SOURCE_KEY = "nav_custom_sources_v2";
 const PIN_KEY = "nav_pinned_groups_v2";
 
-/* 首次使用时的默认导航源（可在界面里直接编辑或删除） */
+/* 首次使用时的默认导航源（示例占位，请自行编辑成你的网址；不泄露任何真实地址） */
 const DEFAULT_SOURCES = [
-  { id: "r1", name: "192.168.3.91:8899", url: "http://192.168.3.91:8899/" },
-  { id: "r2", name: "143.47.123.115:8080", url: "http://143.47.123.115:8080/" },
+  { id: "r1", name: "192.0.2.10:8080", url: "http://192.0.2.10:8080/" },
+  { id: "r2", name: "198.51.100.20:8080", url: "http://198.51.100.20:8080/" },
 ];
 
 function loadSources() {
@@ -308,7 +308,6 @@ function render() {
     const st = remoteState[src.id];
     curGroupEl.textContent = "导航页 · " + src.name;
     curCountEl.textContent = "";
-
     // 顶部工具栏：在新标签页打开 / 刷新
     const bar = document.createElement("div");
     bar.className = "remote-bar";
@@ -323,8 +322,6 @@ function render() {
     refreshBtn.addEventListener("click", () => { refreshSource(src); });
     bar.append(openBtn, refreshBtn);
     blocks.push(bar);
-
-    // 提示：是否抓取到链接
     const tip = document.createElement("p");
     tip.className = "remote-tip";
     if (st && st.ok && st.items.length) {
@@ -335,13 +332,9 @@ function render() {
       tip.textContent = "未能连接该页面（服务未启动 / 网络不可达 / 需要权限）。下方是实时预览，若空白可点上方按钮在新标签页打开，或点 ✎ 改网址。";
     }
     blocks.push(tip);
-
-    // 抓取到的链接列表（如有）
     if (st && st.ok && st.items.length) {
       blocks.push(groupBlock(src.name, st.items, ""));
     }
-
-    // 内嵌实时预览（iframe）
     const frame = document.createElement("div");
     frame.className = "remote-frame";
     const iframe = document.createElement("iframe");
@@ -351,7 +344,6 @@ function render() {
     frame.appendChild(iframe);
     blocks.push(frame);
   }
-
   blocks.forEach((b) => gridWrap.appendChild(b));
 }
 
@@ -367,8 +359,6 @@ function renderSide() {
     div.querySelector(".c-name").textContent = label;
     div.querySelector(".c-name").title = label;
     if (num !== null) div.querySelector(".c-num").textContent = num;
-
-    // 操作按钮：📌 置顶（收藏夹）/ ✎ 编辑（导航页）
     const act = div.querySelector(".c-act");
     if (opts.onPin) {
       const pb = document.createElement("button");
@@ -386,13 +376,10 @@ function renderSide() {
       eb.addEventListener("click", (e) => { e.stopPropagation(); opts.onEdit(); });
       act.appendChild(eb);
     }
-
-    // 恢复当前选中项
     const isActive =
       (type === "group" && currentView.type === "group" && currentView.group && currentView.group.title === opts.id) ||
       (type === "remote" && currentView.type === "remote" && currentView.src && currentView.src.id === opts.id);
     if (isActive) div.classList.add("active");
-
     div.addEventListener("click", () => {
       document.querySelectorAll(".cat").forEach((c) => c.classList.remove("active"));
       div.classList.add("active");
@@ -410,20 +397,15 @@ function renderSide() {
     });
     return div;
   };
-
-  // 1) 自定义导航页（始终在侧栏最顶，可编辑）
   for (const r of REMOTE_SOURCES) {
     const st = remoteState[r.id];
     const cls = st && !st.ok ? "remote err" : "remote";
     const num = st && st.ok ? st.items.length : null;
     sideList.appendChild(mk("remote", r.name, num, cls, { id: r.id, onEdit: () => openEditor(r) }));
   }
-
   const divTop = document.createElement("div");
   divTop.className = "side-divider";
   sideList.appendChild(divTop);
-
-  // 2) 收藏夹：置顶的排最前（按置顶先后），其余按 Edge 文件夹顺序
   const validPinned = pinnedGroups.filter((t) => flatGroups.some((g) => g.title === t));
   const pinnedSet = new Set(validPinned);
   const rest = flatGroups.filter((g) => !pinnedSet.has(g.title));
@@ -434,7 +416,6 @@ function renderSide() {
   for (const g of rest) {
     sideList.appendChild(mk("group", g.title, g.items.length, "", { id: g.title, onPin: () => togglePin(g.title), pinned: false }));
   }
-
   sideFoot.textContent = REMOTE_SOURCES.length
     ? "书签实时同步 · 自动更新 · 导航页可自由加载"
     : "书签实时同步 · 自动更新";
@@ -588,7 +569,6 @@ applyTheme(theme);
 
 chrome.bookmarks.getTree((tree) => {
   collect(tree[0].children || []);
-  // 默认选中第一个书签分类（无书签分类时选中第一个导航页）
   if (flatGroups.length) currentView = { type: "group", group: flatGroups[0] };
   else if (REMOTE_SOURCES.length) currentView = { type: "remote", src: REMOTE_SOURCES[0] };
   else currentView = { type: "all" };
@@ -596,7 +576,6 @@ chrome.bookmarks.getTree((tree) => {
   render();
 });
 
-// 拉取所有导航页
 fetchAllRemote();
 
 if (window.matchMedia) {
